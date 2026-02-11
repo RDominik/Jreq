@@ -1,4 +1,11 @@
-# Backend (Platzhalter)
+# Jreq Backend
 
-Geplant: NestJS + Prisma. In nächstem Commit folgt Grundgerüst mit Entities:
-Project, Epic, UserStory, Task, CustomAttribute.
+Minimaler HTTP-Server als Platzhalter. Nächste Schritte:
+- Prisma Schema unter 
+- .env mit  setzen (z. B. postgres://jreq:jreq@db:5432/jreq)
+- In Docker:  starten
+- Danach im Backend-Container:
+  - 
+  - 
+
+Später: Migration zu NestJS + proper Controllers/Services.
