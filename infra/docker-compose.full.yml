@@ -11,6 +11,11 @@ services:
     volumes:
       - jreq-db:/var/lib/postgresql/data
   backend:
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:3000/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
     image: node:20-alpine
     working_dir: /app
     volumes:
@@ -23,6 +28,11 @@ services:
     ports:
       - "3000:3000"
   frontend:
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
     image: node:20-alpine
     working_dir: /app
     volumes:
