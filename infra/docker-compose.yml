@@ -1,0 +1,14 @@
+version: '3.9'
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: jreq
+      POSTGRES_PASSWORD: jreq
+      POSTGRES_DB: jreq
+    ports:
+      - "5432:5432"
+    volumes:
+      - jreq-db:/var/lib/postgresql/data
+volumes:
+  jreq-db:
