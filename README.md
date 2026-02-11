@@ -35,3 +35,8 @@ docker compose -f infra/docker-compose.full.yml up -d
 ## Lizenz
 MIT (vorschlag; änderbar)
 
+
+## Aktueller Status
+- Backend: /health, /api/hello, /api/schema erreichbar
+- Frontend: UI‑Shell als Placeholder
+- Nächster Schritt: NestJS/Prisma + React/Vite Scaffold
