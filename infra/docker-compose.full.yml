@@ -1,0 +1,38 @@
+version: '3.9'
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: jreq
+      POSTGRES_PASSWORD: jreq
+      POSTGRES_DB: jreq
+    ports:
+      - "5432:5432"
+    volumes:
+      - jreq-db:/var/lib/postgresql/data
+  backend:
+    image: node:20-alpine
+    working_dir: /app
+    volumes:
+      - ../backend:/app
+    environment:
+      PORT: 3000
+    command: sh -c "npm install --no-audit --no-fund && npm run dev"
+    depends_on:
+      - db
+    ports:
+      - "3000:3000"
+  frontend:
+    image: node:20-alpine
+    working_dir: /app
+    volumes:
+      - ../frontend:/app
+    environment:
+      PORT: 8080
+    command: sh -c "npm install --no-audit --no-fund && npm run dev"
+    depends_on:
+      - backend
+    ports:
+      - "8080:8080"
+volumes:
+  jreq-db:

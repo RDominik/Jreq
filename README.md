@@ -24,6 +24,12 @@ Monorepo-Struktur für ein leichtgewichtiges Requirements-/Issue-Tracking-Tool.
 ```
 # Postgres starten
 docker compose -f infra/docker-compose.yml up -d db
+
+### Full‑Stack (alles als Container)
+```
+docker compose -f infra/docker-compose.full.yml up -d
+# Frontend: http://localhost:8080  |  Backend: http://localhost:3000
+```
 ```
 
 ## Lizenz
