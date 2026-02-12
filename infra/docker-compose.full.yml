@@ -22,6 +22,7 @@ services:
       - ../backend:/app
     environment:
       PORT: 3000
+      DATABASE_URL: postgresql://jreq:jreq@db:5432/jreq
     command: sh -c "npm install --no-audit --no-fund && npm run dev"
     depends_on:
       - db
