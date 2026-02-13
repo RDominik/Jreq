@@ -94,6 +94,31 @@ app.post('/api/epics', (req, res) => {
   const rec = create(db.epics, { projectId, title, status, priority, createdAt: now(), updatedAt: now() })
   res.status(201).json(rec)
 })
+app.get('/api/epics/:id', (req, res) => {
+  const r = db.epics.get(req.params.id)
+  if(!r) return res.sendStatus(404)
+  res.json(r)
+})
+app.patch('/api/epics/:id', (req, res) => {
+  const r = update(db.epics, req.params.id, { ...req.body, updatedAt: now() })
+  if(!r) return res.sendStatus(404)
+  res.json(r)
+})
+app.delete('/api/epics/:id', (req, res) => {
+  const id = req.params.id
+  if(!db.epics.has(id)) return res.sendStatus(404)
+  // cascade delete stories and tasks under this epic (in-memory only)
+  for (const [sid, story] of Array.from(db.stories.entries())) {
+    if (story.epicId === id) {
+      for (const [tid, task] of Array.from(db.tasks.entries())) {
+        if (task.userStoryId === sid) db.tasks.delete(tid)
+      }
+      db.stories.delete(sid)
+    }
+  }
+  db.epics.delete(id)
+  res.status(204).end()
+})
 
 // Stories
 app.get('/api/stories', (req, res) => {
